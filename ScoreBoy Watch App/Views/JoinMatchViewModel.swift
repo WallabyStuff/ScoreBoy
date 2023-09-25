@@ -46,7 +46,7 @@ final class JoinMatchViewModel: ObservableObject {
       if snapshot.hasChild(entryCode) {
         self.ref.child(entryCode)
           .child("test op UserID")
-          .setValue(["score" : 0, "state" : 0]) { [weak self] error, ref in
+          .setValue(["score" : 0]) { [weak self] error, ref in
             if let error {
               self?.matchState = .failed
             }

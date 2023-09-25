@@ -66,7 +66,7 @@ struct JoinMatchView: View {
       }
     }
     .fullScreenCover(isPresented: $isMatchViewShowing, content: {
-      MatchView()
+      MatchView(viewModel: .init(key: viewModel.entryCode))
     })
   }
   

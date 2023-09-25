@@ -35,7 +35,7 @@ final class WaitingRoomViewModel: ObservableObject {
   public func generateRoom() {
     ref.child(entryCode)
       .child("test UserID")
-      .setValue(["score" : 0, "state" : 0])
+      .setValue(["score" : 0])
     
     // 방 생성한 후 상대방이 들오는지 상태 감시
     observeMatchState()
