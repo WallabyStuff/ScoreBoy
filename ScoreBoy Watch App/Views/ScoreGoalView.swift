@@ -61,7 +61,7 @@ struct ScoreGoalView: View {
       .padding(8)
       
       NavigationLink {
-        MatchView()
+        WaitingRoomView(viewModel: .init())
       } label: {
         Text("다음")
           .font(.system(size: 15, weight: .bold))
