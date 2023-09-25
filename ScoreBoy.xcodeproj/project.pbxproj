@@ -33,6 +33,8 @@
 		8EA1A7B62AC1CFAD00ECF842 /* RandomCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1A7B32AC1CFA300ECF842 /* RandomCodeGenerator.swift */; };
 		8EA1A7BA2AC1CFE700ECF842 /* WaitingRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1A7B92AC1CFE700ECF842 /* WaitingRoomView.swift */; };
 		8EA1A7BC2AC1D04300ECF842 /* WaitingRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1A7BB2AC1D04300ECF842 /* WaitingRoomViewModel.swift */; };
+		8EA1A7C42AC1D3B600ECF842 /* JoinMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1A7C32AC1D3B600ECF842 /* JoinMatchView.swift */; };
+		8EA1A7C72AC1DAD100ECF842 /* JoinMatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1A7C62AC1DAD100ECF842 /* JoinMatchViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,8 @@
 		8EA1A7B32AC1CFA300ECF842 /* RandomCodeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCodeGenerator.swift; sourceTree = "<group>"; };
 		8EA1A7B92AC1CFE700ECF842 /* WaitingRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingRoomView.swift; sourceTree = "<group>"; };
 		8EA1A7BB2AC1D04300ECF842 /* WaitingRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingRoomViewModel.swift; sourceTree = "<group>"; };
+		8EA1A7C32AC1D3B600ECF842 /* JoinMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinMatchView.swift; sourceTree = "<group>"; };
+		8EA1A7C62AC1DAD100ECF842 /* JoinMatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinMatchViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +136,8 @@
 				8E0D08DE2AB5BA2B00E61FE1 /* MatchView.swift */,
 				8EA1A7B92AC1CFE700ECF842 /* WaitingRoomView.swift */,
 				8EA1A7BB2AC1D04300ECF842 /* WaitingRoomViewModel.swift */,
+				8EA1A7C32AC1D3B600ECF842 /* JoinMatchView.swift */,
+				8EA1A7C62AC1DAD100ECF842 /* JoinMatchViewModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -351,6 +357,8 @@
 			files = (
 				8E8A8A902AB4B9A6000528BC /* MainView.swift in Sources */,
 				8E0D08C92AB4C6E300E61FE1 /* ColorSet.swift in Sources */,
+				8EA1A7C72AC1DAD100ECF842 /* JoinMatchViewModel.swift in Sources */,
+				8EA1A7C42AC1D3B600ECF842 /* JoinMatchView.swift in Sources */,
 				8E0D08DF2AB5BA2B00E61FE1 /* MatchView.swift in Sources */,
 				8EA1A7BC2AC1D04300ECF842 /* WaitingRoomViewModel.swift in Sources */,
 				8E0D08D52AB4D39200E61FE1 /* Date+Formatted.swift in Sources */,

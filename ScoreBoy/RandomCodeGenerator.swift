@@ -9,7 +9,7 @@ import Foundation
 
 struct RandomCodeGenerator {
   static func generateRandomCode() -> String {
-    let characters = "abcd1234"
+    let characters = "ABCD123"
     var randomString = ""
     
     // 8자리 조합 생성
