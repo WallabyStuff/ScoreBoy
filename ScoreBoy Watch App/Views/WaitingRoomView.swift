@@ -12,6 +12,7 @@ struct WaitingRoomView: View {
   // MARK: - Properties
   
   @StateObject var viewModel: WaitingRoomViewModel
+  @State private var isMatchViewShown = false
   
   
   // MARK: - Views
@@ -28,11 +29,16 @@ struct WaitingRoomView: View {
     }
     .onAppear {
       viewModel.generateRoom()
-      viewModel.observeMatchState()
     }
     .onDisappear {
       viewModel.removeRoom()
     }
+    .onChange(of: viewModel.matchState) { newValue in
+      isMatchViewShown = true
+    }
+    .fullScreenCover(isPresented: $isMatchViewShown, content: {
+      MatchView()
+    })
   }
 }
 

@@ -13,6 +13,8 @@ struct JoinMatchView: View {
   
   @StateObject var viewModel: JoinMatchViewModel
   
+  @State private var isShowingEntryCodeErrorAlert = false
+  
   
   // MARK: - Views
   
@@ -47,6 +49,9 @@ struct JoinMatchView: View {
     }
     .edgesIgnoringSafeArea(.bottom)
     .frame(maxHeight: .infinity)
+    .alert("5자리 입장코드를 모두 입력해 주세요", isPresented: $isShowingEntryCodeErrorAlert) {
+      Button("확인", role: .cancel) { }
+    }
   }
   
   private func entryCodeKeyboard() -> some View {
@@ -90,7 +95,13 @@ struct JoinMatchView: View {
           }
           
           Button {
-            // action
+            if viewModel.entryCode.count != 5 {
+              // 입장코드 5자리 모두 입력하지 않았을 때 alert
+              isShowingEntryCodeErrorAlert = true
+            } else {
+              // 입장 시도
+              viewModel.enter()
+            }
           } label: {
             RoundedRectangle(cornerRadius: 8)
               .fill(Color.sbGreen)
