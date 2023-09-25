@@ -11,8 +11,7 @@ struct MatchView: View {
   
   // MARK: - Properties
   
-  @State private var myScore = 0
-  @State private var opScore = 0
+  @StateObject var viewModel: MatchViewModel
   
   
   // MARK: - Views
@@ -21,7 +20,7 @@ struct MatchView: View {
     HStack(spacing: 4) {
       VStack(spacing: 4) {
         Button {
-          myScore += 1
+          viewModel.adjustMy(score: 1)
         } label: {
           Image(systemName: "plus")
             .font(.system(size: 24, weight: .medium))
@@ -36,7 +35,7 @@ struct MatchView: View {
             .font(.system(size: 13))
             .opacity(0.6)
           
-          Text(myScore.description)
+          Text(viewModel.myScore.description)
             .font(.system(size: 44, weight: .bold))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -45,7 +44,7 @@ struct MatchView: View {
         .clipShape(RoundedRectangle(cornerRadius: 8))
         
         Button {
-          myScore -= 1
+          viewModel.adjustMy(score: -1)
         } label: {
           Image(systemName: "minus")
             .font(.system(size: 24, weight: .medium))
@@ -58,7 +57,7 @@ struct MatchView: View {
       
       VStack(spacing: 4) {
         Button {
-          opScore += 1
+          viewModel.adjustOp(score: 1)
         } label: {
           Image(systemName: "plus")
             .font(.system(size: 24, weight: .medium))
@@ -73,7 +72,7 @@ struct MatchView: View {
             .font(.system(size: 13))
             .opacity(0.6)
           
-          Text(opScore.description)
+          Text(viewModel.opScore.description)
             .font(.system(size: 44, weight: .bold))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -82,7 +81,7 @@ struct MatchView: View {
         .clipShape(RoundedRectangle(cornerRadius: 8))
         
         Button {
-          opScore -= 1
+          viewModel.adjustOp(score: -1)
         } label: {
           Image(systemName: "minus")
             .font(.system(size: 24, weight: .medium))
@@ -101,5 +100,5 @@ struct MatchView: View {
 // MARK: - Preview
 
 #Preview {
-  MatchView()
+  MatchView(viewModel: .init(key: "22D11"))
 }
