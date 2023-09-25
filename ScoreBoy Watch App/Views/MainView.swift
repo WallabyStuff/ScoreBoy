@@ -59,8 +59,8 @@ struct MainView: View {
               }
               .buttonStyle(.plain)
               
-              Button {
-                // action
+              NavigationLink {
+                JoinMatchView(viewModel: .init())
               } label: {
                 Text("참가")
                   .font(.system(size: 15, weight: .bold))
