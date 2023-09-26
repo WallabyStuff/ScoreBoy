@@ -19,6 +19,9 @@ class MatchViewModel: ObservableObject {
   @Published var myScore = 0
   @Published var opScore = 0
   
+  @Published var isMeWon = false
+  @Published var isOpWon = false
+  
   
   // MARK: - Initializers
   
@@ -44,6 +47,11 @@ class MatchViewModel: ObservableObject {
     ref.child(key)
       .child("test_user_id")
       .setValue(["score" : increasedNumber])
+    
+    // 내 점수가 목표 점수에 도달했는지 확인
+    if increasedNumber == goalScore {
+      isMeWon = true
+    }
   }
   
   public func adjustOp(score: Int) {
@@ -53,6 +61,16 @@ class MatchViewModel: ObservableObject {
     ref.child(key)
       .child("test_op_user_id")
       .setValue(["score" : increasedNumber])
+    
+    // 상대 점수가 목표 점수에 도달했는지 확인
+    if increasedNumber == goalScore {
+      isOpWon = true
+    }
+  }
+  
+  public func finishMatch() {
+    ref.child(key)
+      .removeValue()
   }
   
   
@@ -61,16 +79,28 @@ class MatchViewModel: ObservableObject {
   private func observeMatch() {
     ref.child(key)
       .observe(.childChanged) { [weak self] snapshot in
+        guard let self else { return }
+        
         if let value = snapshot.value as? [String: Any] {
           if let newScore = value["score"] as? Int {
             // 상대 점수 업데이트
             if snapshot.key == "test_op_user_id" {
-              self?.opScore = newScore
+              self.opScore = newScore
+              
+              // 상대 점수가 목표 점수에 도달했는지 확인
+              if newScore == self.goalScore {
+                isOpWon = true
+              }
             }
             
             // 내 점수 업데이트
             if snapshot.key == "test_user_id" {
-              self?.myScore = newScore
+              self.myScore = newScore
+              
+              // 내 점수가 목표 점수에 도달했는지 확인
+              if newScore == self.goalScore {
+                isMeWon = true
+              }
             }
           }
         }
