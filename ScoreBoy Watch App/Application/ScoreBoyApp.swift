@@ -11,9 +11,15 @@ import Firebase
 @main
 struct ScoreBoy_Watch_AppApp: App {
   
+  // MARK: - Initializers
+  
   init() {
     FirebaseApp.configure()
+    UserIdManager.shared.generateIdIfNotExists()
   }
+  
+
+  // MARK: - Views
   
   var body: some Scene {
     WindowGroup {

@@ -18,6 +18,7 @@ final class WaitingRoomViewModel: ObservableObject {
   }
   
   private let ref = Database.database().reference()
+  private let userId = UserIdManager.shared.getUserId()
   public let goalScore: Int
   
   @Published var entryCode = RandomCodeGenerator.generateRandomCode()
@@ -42,7 +43,7 @@ final class WaitingRoomViewModel: ObservableObject {
     ref.child(entryCode)
       .setValue([
         "goal_score" : goalScore,
-        "test_user_id" : ["score" : 0]
+        userId : ["score" : 0]
       ])
     
     // 방 생성한 후 상대방이 들오는지 상태 감시
@@ -59,9 +60,12 @@ final class WaitingRoomViewModel: ObservableObject {
   
   private func observeMatchState() {
     ref.child(entryCode)
-      .observe(.childAdded) { [weak self] snapshot in
-        if snapshot.key == "test_op_user_id" {
-          self?.matchState = .matched
+      .observe(.value) { [weak self] snapshot in
+        guard let self else { return }
+        // 내 아이디가 아닌 사람이 들어왔다면 매치 시작
+        print(snapshot.childrenCount)
+        if snapshot.childrenCount == 3 {
+          self.matchState = .matched
         }
       }
   }
