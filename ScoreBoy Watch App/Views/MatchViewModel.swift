@@ -14,7 +14,9 @@ class MatchViewModel: ObservableObject {
   
   private let key: String
   private let ref = Database.database().reference()
-  private let goalScore: Int
+  private let userId = UserIdManager.shared.getUserId()
+  private var opUserId = ""
+  private var goalScore: Int = 0
   
   @Published var myScore = 0
   @Published var opScore = 0
@@ -25,10 +27,10 @@ class MatchViewModel: ObservableObject {
   
   // MARK: - Initializers
   
-  init(key: String, goalScore: Int) {
+  init(key: String) {
     self.key = key
-    self.goalScore = goalScore
     
+    setupMatchInfo()
     observeMatch()
   }
   
@@ -45,7 +47,7 @@ class MatchViewModel: ObservableObject {
     myScore = increasedNumber
     
     ref.child(key)
-      .child("test_user_id")
+      .child(userId)
       .setValue(["score" : increasedNumber])
     
     // 내 점수가 목표 점수에 도달했는지 확인
@@ -59,7 +61,7 @@ class MatchViewModel: ObservableObject {
     opScore = increasedNumber
     
     ref.child(key)
-      .child("test_op_user_id")
+      .child(opUserId)
       .setValue(["score" : increasedNumber])
     
     // 상대 점수가 목표 점수에 도달했는지 확인
@@ -76,6 +78,37 @@ class MatchViewModel: ObservableObject {
   
   // MARK: - Private
   
+  private func setupMatchInfo() {
+    ref.child(key).observeSingleEvent(of: .value) { [weak self] snapshot in
+      guard let self = self,
+            var dictionary = snapshot.value as? [String: Any] else { return }
+      
+      // 딕셔너리에서 내 아이디 값 빼고 나머지로 매치 정보 세팅
+      dictionary.removeValue(forKey: userId)
+      
+      dictionary.forEach { key, value in
+        if key == "goal_score" {
+          self.goalScore = value as! Int
+        } else {
+          self.opUserId = key
+        }
+      }
+    }
+//    
+//    if var dictionary = ref.value(forKey: key) as? [String: Any] {
+//      // 딕셔너리에서 내 아이디 값 빼고 나머지로 매치 정보 세팅
+//      dictionary.removeValue(forKey: userId)
+//      
+//      dictionary.forEach { key, value in
+//        if key == "goal_score" {
+//          goalScore = value as! Int
+//        } else {
+//          opUserId = key
+//        }
+//      }
+//    }
+  }
+  
   private func observeMatch() {
     ref.child(key)
       .observe(.childChanged) { [weak self] snapshot in
@@ -84,7 +117,7 @@ class MatchViewModel: ObservableObject {
         if let value = snapshot.value as? [String: Any] {
           if let newScore = value["score"] as? Int {
             // 상대 점수 업데이트
-            if snapshot.key == "test_op_user_id" {
+            if snapshot.key == opUserId {
               self.opScore = newScore
               
               // 상대 점수가 목표 점수에 도달했는지 확인
@@ -94,7 +127,7 @@ class MatchViewModel: ObservableObject {
             }
             
             // 내 점수 업데이트
-            if snapshot.key == "test_user_id" {
+            if snapshot.key == self.userId {
               self.myScore = newScore
               
               // 내 점수가 목표 점수에 도달했는지 확인

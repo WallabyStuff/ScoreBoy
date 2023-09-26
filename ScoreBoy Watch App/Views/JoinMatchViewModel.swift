@@ -19,7 +19,7 @@ final class JoinMatchViewModel: ObservableObject {
   }
   
   private let ref = Database.database().reference()
-  @Published var goalScore: Int? = nil
+  private let userId = UserIdManager.shared.getUserId()
   
   @Published var entryCode = ""
   @Published var matchState = MatchState.idle
@@ -46,7 +46,7 @@ final class JoinMatchViewModel: ObservableObject {
       
       if snapshot.hasChild(entryCode) {
         self.ref.child(entryCode)
-          .child("test_op_user_id")
+          .child(userId)
           .setValue(["score" : 0]) { [weak self] error, ref in
             if let error {
               self?.matchState = .failed
@@ -67,14 +67,11 @@ final class JoinMatchViewModel: ObservableObject {
   private func observeMatchState() {
     ref.child(entryCode)
       .observe(.childAdded) { [weak self] snapshot in
-        if snapshot.key == "goal_score" {
-          if let goalScore = snapshot.value as? Int {
-            self?.goalScore = goalScore
-          }
-        }
+        guard let self else { return }
         
-        if snapshot.key == "test_op_user_id" {
-          self?.matchState = .matched
+        // 매치 노드에 내 아이디 추가가 되었다면 매치 시작
+        if snapshot.key == self.userId {
+          self.matchState = .matched
         }
       }
   }
