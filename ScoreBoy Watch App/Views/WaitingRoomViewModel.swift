@@ -17,13 +17,19 @@ final class WaitingRoomViewModel: ObservableObject {
     case waiting
   }
   
+  private let ref = Database.database().reference()
+  public let goalScore: Int
+  
   @Published var entryCode = RandomCodeGenerator.generateRandomCode()
   @Published var matchState = MatchState.waiting
   
-  private let ref = Database.database().reference()
   
   
   // MARK: - Initializers
+  
+  init(goalScore: Int) {
+    self.goalScore = goalScore
+  }
   
   deinit {
     removeMatchStateObserver()
@@ -34,8 +40,10 @@ final class WaitingRoomViewModel: ObservableObject {
   
   public func generateRoom() {
     ref.child(entryCode)
-      .child("test UserID")
-      .setValue(["score" : 0])
+      .setValue([
+        "goal_score" : goalScore,
+        "test_user_id" : ["score" : 0]
+      ])
     
     // 방 생성한 후 상대방이 들오는지 상태 감시
     observeMatchState()
@@ -52,7 +60,7 @@ final class WaitingRoomViewModel: ObservableObject {
   private func observeMatchState() {
     ref.child(entryCode)
       .observe(.childAdded) { [weak self] snapshot in
-        if snapshot.key != "test UserID" {
+        if snapshot.key == "test_op_user_id" {
           self?.matchState = .matched
         }
       }

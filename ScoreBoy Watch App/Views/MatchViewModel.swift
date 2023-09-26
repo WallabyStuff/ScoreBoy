@@ -14,15 +14,21 @@ class MatchViewModel: ObservableObject {
   
   private let key: String
   private let ref = Database.database().reference()
+  private let goalScore: Int
   
   @Published var myScore = 0
   @Published var opScore = 0
   
+  @Published var isMeWon = false
+  @Published var isOpWon = false
+  
   
   // MARK: - Initializers
   
-  init(key: String) {
+  init(key: String, goalScore: Int) {
     self.key = key
+    self.goalScore = goalScore
+    
     observeMatch()
   }
   
@@ -39,8 +45,13 @@ class MatchViewModel: ObservableObject {
     myScore = increasedNumber
     
     ref.child(key)
-      .child("test UserID")
+      .child("test_user_id")
       .setValue(["score" : increasedNumber])
+    
+    // 내 점수가 목표 점수에 도달했는지 확인
+    if increasedNumber == goalScore {
+      isMeWon = true
+    }
   }
   
   public func adjustOp(score: Int) {
@@ -48,8 +59,18 @@ class MatchViewModel: ObservableObject {
     opScore = increasedNumber
     
     ref.child(key)
-      .child("test op UserID")
+      .child("test_op_user_id")
       .setValue(["score" : increasedNumber])
+    
+    // 상대 점수가 목표 점수에 도달했는지 확인
+    if increasedNumber == goalScore {
+      isOpWon = true
+    }
+  }
+  
+  public func finishMatch() {
+    ref.child(key)
+      .removeValue()
   }
   
   
@@ -58,20 +79,28 @@ class MatchViewModel: ObservableObject {
   private func observeMatch() {
     ref.child(key)
       .observe(.childChanged) { [weak self] snapshot in
-        print(snapshot)
-        print(snapshot.key)
-        print(snapshot.children)
+        guard let self else { return }
         
         if let value = snapshot.value as? [String: Any] {
           if let newScore = value["score"] as? Int {
             // 상대 점수 업데이트
-            if snapshot.key == "test op UserID" {
-              self?.opScore = newScore
+            if snapshot.key == "test_op_user_id" {
+              self.opScore = newScore
+              
+              // 상대 점수가 목표 점수에 도달했는지 확인
+              if newScore == self.goalScore {
+                isOpWon = true
+              }
             }
             
             // 내 점수 업데이트
-            if snapshot.key == "test UserID" {
-              self?.myScore = newScore
+            if snapshot.key == "test_user_id" {
+              self.myScore = newScore
+              
+              // 내 점수가 목표 점수에 도달했는지 확인
+              if newScore == self.goalScore {
+                isMeWon = true
+              }
             }
           }
         }

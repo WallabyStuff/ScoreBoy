@@ -11,6 +11,7 @@ struct MatchView: View {
   
   // MARK: - Properties
   
+  @Environment(\.dismiss) private var dismiss
   @StateObject var viewModel: MatchViewModel
   
   
@@ -29,6 +30,7 @@ struct MatchView: View {
             .clipShape(RoundedRectangle(cornerRadius: 8))
         }
         .buttonStyle(.plain)
+        .disabled(viewModel.isMeWon || viewModel.isOpWon)
         
         VStack {
           Text("나")
@@ -53,6 +55,7 @@ struct MatchView: View {
             .clipShape(RoundedRectangle(cornerRadius: 8))
         }
         .buttonStyle(.plain)
+        .disabled(viewModel.isMeWon || viewModel.isOpWon)
       }
       
       VStack(spacing: 4) {
@@ -66,6 +69,7 @@ struct MatchView: View {
             .clipShape(RoundedRectangle(cornerRadius: 8))
         }
         .buttonStyle(.plain)
+        .disabled(viewModel.isMeWon || viewModel.isOpWon)
         
         VStack {
           Text("상대")
@@ -90,9 +94,30 @@ struct MatchView: View {
             .clipShape(RoundedRectangle(cornerRadius: 8))
         }
         .buttonStyle(.plain)
+        .disabled(viewModel.isMeWon || viewModel.isOpWon)
       }
     }
     .edgesIgnoringSafeArea(.bottom)
+    .alert("아쉽게 패배하였네요😢\n확인을 누르면 이전 화면으로 돌아갑니다.",
+           isPresented: $viewModel.isOpWon) {
+      Button("확인", role: .cancel) {
+        finishMatch()
+      }
+    }
+    .alert("축하합니다!\n게임에서 이겼습니다.",
+           isPresented: $viewModel.isMeWon) {
+      Button("확인", role: .cancel) {
+        finishMatch()
+      }
+    }
+  }
+  
+  
+  // MARK: - Methods
+  
+  private func finishMatch() {
+    viewModel.finishMatch()
+    dismiss()
   }
 }
 
@@ -100,5 +125,5 @@ struct MatchView: View {
 // MARK: - Preview
 
 #Preview {
-  MatchView(viewModel: .init(key: "22D11"))
+  MatchView(viewModel: .init(key: "22D11", goalScore: 10))
 }

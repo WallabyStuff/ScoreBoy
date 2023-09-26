@@ -37,11 +37,13 @@ struct WaitingRoomView: View {
       isMatchViewShown = true
     }
     .fullScreenCover(isPresented: $isMatchViewShown, content: {
-      MatchView(viewModel: .init(key: viewModel.entryCode))
+      let viewModel = MatchViewModel(key: viewModel.entryCode,
+                                     goalScore: viewModel.goalScore)
+      MatchView(viewModel: viewModel)
     })
   }
 }
 
 #Preview {
-  WaitingRoomView(viewModel: .init())
+  WaitingRoomView(viewModel: .init(goalScore: 10))
 }
