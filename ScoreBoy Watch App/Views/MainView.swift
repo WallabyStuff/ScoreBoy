@@ -49,7 +49,7 @@ struct MainView: View {
             
             HStack(spacing: 4) {
               NavigationLink {
-                ScoreGoalView()
+                GoalScoreView()
               } label: {
                 Text("새 게임")
                   .font(.system(size: 15, weight: .bold))

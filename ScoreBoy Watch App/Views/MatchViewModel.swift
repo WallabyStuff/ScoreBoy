@@ -14,6 +14,7 @@ class MatchViewModel: ObservableObject {
   
   private let key: String
   private let ref = Database.database().reference()
+  private let goalScore: Int
   
   @Published var myScore = 0
   @Published var opScore = 0
@@ -21,8 +22,10 @@ class MatchViewModel: ObservableObject {
   
   // MARK: - Initializers
   
-  init(key: String) {
+  init(key: String, goalScore: Int) {
     self.key = key
+    self.goalScore = goalScore
+    
     observeMatch()
   }
   
@@ -39,7 +42,7 @@ class MatchViewModel: ObservableObject {
     myScore = increasedNumber
     
     ref.child(key)
-      .child("test UserID")
+      .child("test_user_id")
       .setValue(["score" : increasedNumber])
   }
   
@@ -48,7 +51,7 @@ class MatchViewModel: ObservableObject {
     opScore = increasedNumber
     
     ref.child(key)
-      .child("test op UserID")
+      .child("test_op_user_id")
       .setValue(["score" : increasedNumber])
   }
   
@@ -58,19 +61,15 @@ class MatchViewModel: ObservableObject {
   private func observeMatch() {
     ref.child(key)
       .observe(.childChanged) { [weak self] snapshot in
-        print(snapshot)
-        print(snapshot.key)
-        print(snapshot.children)
-        
         if let value = snapshot.value as? [String: Any] {
           if let newScore = value["score"] as? Int {
             // 상대 점수 업데이트
-            if snapshot.key == "test op UserID" {
+            if snapshot.key == "test_op_user_id" {
               self?.opScore = newScore
             }
             
             // 내 점수 업데이트
-            if snapshot.key == "test UserID" {
+            if snapshot.key == "test_user_id" {
               self?.myScore = newScore
             }
           }

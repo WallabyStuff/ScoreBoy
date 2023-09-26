@@ -66,7 +66,13 @@ struct JoinMatchView: View {
       }
     }
     .fullScreenCover(isPresented: $isMatchViewShowing, content: {
-      MatchView(viewModel: .init(key: viewModel.entryCode))
+      if let goalScore = viewModel.goalScore {
+        let viewModel = MatchViewModel(key: viewModel.entryCode,
+                                       goalScore: goalScore)
+        MatchView(viewModel: viewModel)
+      } else {
+        EmptyView()
+      }
     })
   }
   

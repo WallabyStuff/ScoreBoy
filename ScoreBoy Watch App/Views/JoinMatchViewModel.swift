@@ -18,10 +18,11 @@ final class JoinMatchViewModel: ObservableObject {
     case failed
   }
   
+  private let ref = Database.database().reference()
+  @Published var goalScore: Int? = nil
+  
   @Published var entryCode = ""
   @Published var matchState = MatchState.idle
-  
-  private let ref = Database.database().reference()
   
   
   // MARK: - Public
@@ -45,10 +46,11 @@ final class JoinMatchViewModel: ObservableObject {
       
       if snapshot.hasChild(entryCode) {
         self.ref.child(entryCode)
-          .child("test op UserID")
+          .child("test_op_user_id")
           .setValue(["score" : 0]) { [weak self] error, ref in
             if let error {
               self?.matchState = .failed
+              print(error)
             }
             
             self?.observeMatchState()
@@ -65,7 +67,15 @@ final class JoinMatchViewModel: ObservableObject {
   private func observeMatchState() {
     ref.child(entryCode)
       .observe(.childAdded) { [weak self] snapshot in
-        self?.matchState = .matched
+        if snapshot.key == "goal_score" {
+          if let goalScore = snapshot.value as? Int {
+            self?.goalScore = goalScore
+          }
+        }
+        
+        if snapshot.key == "test_op_user_id" {
+          self?.matchState = .matched
+        }
       }
   }
 }

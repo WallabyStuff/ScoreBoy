@@ -100,5 +100,5 @@ struct MatchView: View {
 // MARK: - Preview
 
 #Preview {
-  MatchView(viewModel: .init(key: "22D11"))
+  MatchView(viewModel: .init(key: "22D11", goalScore: 10))
 }

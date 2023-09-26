@@ -1,5 +1,5 @@
 //
-//  ScoreGoalView.swift
+//  GoalScoreView.swift
 //  ScoreBoy Watch App
 //
 //  Created by 이승기 on 2023/09/16.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ScoreGoalView: View {
+struct GoalScoreView: View {
   
   // MARK: - Properties
   
@@ -61,7 +61,8 @@ struct ScoreGoalView: View {
       .padding(8)
       
       NavigationLink {
-        WaitingRoomView(viewModel: .init())
+        let viewModel = WaitingRoomViewModel(goalScore: goalScore)
+        WaitingRoomView(viewModel: viewModel)
       } label: {
         Text("다음")
           .font(.system(size: 15, weight: .bold))
@@ -83,6 +84,6 @@ struct ScoreGoalView: View {
 
 #Preview {
   NavigationView(content: {
-    ScoreGoalView()
+    GoalScoreView()
   })
 }
