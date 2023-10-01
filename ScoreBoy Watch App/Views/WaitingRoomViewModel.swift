@@ -21,8 +21,8 @@ final class WaitingRoomViewModel: ObservableObject {
   private let userId = UserIdManager.shared.getUserId()
   public let goalScore: Int
   
-  @Published var entryCode = RandomCodeGenerator.generateRandomCode()
-  @Published var matchState = MatchState.waiting
+  @Published private(set) var entryCode = RandomCodeGenerator.generateRandomCode()
+  @Published private(set) var matchState = MatchState.waiting
   
   
   

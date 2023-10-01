@@ -134,8 +134,8 @@
 		8E0D08D62AB4D3FD00E61FE1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8E0D08CC2AB4CF5200E61FE1 /* MainViewModel.swift */,
 				8E8A8A8F2AB4B9A6000528BC /* MainView.swift */,
+				8E0D08CC2AB4CF5200E61FE1 /* MainViewModel.swift */,
 				8E0D08DC2AB4D5C500E61FE1 /* GoalScoreView.swift */,
 				8E0D08DE2AB5BA2B00E61FE1 /* MatchView.swift */,
 				8EA1A7CE2AC22D0600ECF842 /* MatchViewModel.swift */,
