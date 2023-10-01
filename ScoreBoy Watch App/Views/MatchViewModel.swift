@@ -24,6 +24,8 @@ class MatchViewModel: ObservableObject {
   @Published var isMeWon = false
   @Published var isOpWon = false
   
+  @Published var isOpExit = false
+  
   
   // MARK: - Initializers
   
@@ -32,6 +34,7 @@ class MatchViewModel: ObservableObject {
     
     setupMatchInfo()
     observeMatch()
+    observeMatchState()
   }
   
   deinit {
@@ -72,6 +75,12 @@ class MatchViewModel: ObservableObject {
   
   public func finishMatch() {
     ref.child(key)
+      .removeValue()
+  }
+  
+  public func exitMatch() {
+    ref.child(key)
+      .child(userId)
       .removeValue()
   }
   
@@ -124,6 +133,13 @@ class MatchViewModel: ObservableObject {
             }
           }
         }
+      }
+  }
+  
+  private func observeMatchState() {
+    ref.child(key)
+      .observe(.childRemoved) { [weak self] _ in
+        self?.isOpExit = true
       }
   }
 }
