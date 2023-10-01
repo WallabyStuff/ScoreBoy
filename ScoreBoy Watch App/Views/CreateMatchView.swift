@@ -1,5 +1,5 @@
 //
-//  WaitingRoomView.swift
+//  CreateMatchView.swift
 //  ScoreBoy Watch App
 //
 //  Created by 이승기 on 2023/09/25.
@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct WaitingRoomView: View {
+struct CreateMatchView: View {
   
   // MARK: - Properties
   
-  @StateObject var viewModel: WaitingRoomViewModel
+  @StateObject var viewModel: CreateMatchViewModel
   @State private var isMatchViewShown = false
   
   
@@ -44,5 +44,5 @@ struct WaitingRoomView: View {
 }
 
 #Preview {
-  WaitingRoomView(viewModel: .init(goalScore: 10))
+  CreateMatchView(viewModel: .init(goalScore: 10))
 }

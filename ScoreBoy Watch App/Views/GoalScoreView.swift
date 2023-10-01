@@ -60,8 +60,8 @@ struct GoalScoreView: View {
       .padding(8)
       
       NavigationLink {
-        let viewModel = WaitingRoomViewModel(goalScore: viewModel.goalScore)
-        WaitingRoomView(viewModel: viewModel)
+        let viewModel = CreateMatchViewModel(goalScore: viewModel.goalScore)
+        CreateMatchView(viewModel: viewModel)
       } label: {
         Text("다음")
           .font(.system(size: 15, weight: .bold))
