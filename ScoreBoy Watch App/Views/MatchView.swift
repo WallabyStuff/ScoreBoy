@@ -98,6 +98,9 @@ struct MatchView: View {
       }
     }
     .edgesIgnoringSafeArea(.bottom)
+    .onDisappear {
+      viewModel.exitMatch()
+    }
     .alert("아쉽게 패배하였네요😢\n확인을 누르면 이전 화면으로 돌아갑니다.",
            isPresented: $viewModel.isOpWon) {
       Button("확인", role: .cancel) {
@@ -108,6 +111,15 @@ struct MatchView: View {
            isPresented: $viewModel.isMeWon) {
       Button("확인", role: .cancel) {
         finishMatch()
+      }
+    }
+    .alert("상대방이 매치에서 떠났습니다.\n매치를 떠날까요?",
+           isPresented: $viewModel.isOpExit) {
+      Group {
+        Button("아니오", role: .cancel) { }
+        Button("네", role: .destructive) {
+          finishMatch()
+        }
       }
     }
   }
