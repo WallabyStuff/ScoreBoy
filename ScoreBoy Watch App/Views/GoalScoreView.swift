@@ -11,7 +11,7 @@ struct GoalScoreView: View {
   
   // MARK: - Properties
   
-  @State private var goalScore = 1
+  @StateObject var viewModel: GoalScoreViewModel
   
   
   // MARK: - Views
@@ -25,7 +25,7 @@ struct GoalScoreView: View {
           Text("목표 점수")
             .font(.system(size: 13, weight: .medium))
           
-          Text(goalScore.description)
+          Text(viewModel.goalScore.description)
             .font(.system(size: 44, weight: .bold))
         }
         
@@ -33,7 +33,7 @@ struct GoalScoreView: View {
         
         VStack(spacing: 5) {
           Button {
-            goalScore += 1
+            viewModel.increaseScore()
           } label: {
             Image(systemName: "plus")
               .font(.system(size: 24, weight: .medium))
@@ -44,8 +44,7 @@ struct GoalScoreView: View {
           .buttonStyle(.plain)
           
           Button {
-            if goalScore == 1 { return }
-            goalScore -= 1
+            viewModel.decreaseScore()
           } label: {
             Image(systemName: "minus")
               .font(.system(size: 24, weight: .medium))
@@ -61,7 +60,7 @@ struct GoalScoreView: View {
       .padding(8)
       
       NavigationLink {
-        let viewModel = WaitingRoomViewModel(goalScore: goalScore)
+        let viewModel = WaitingRoomViewModel(goalScore: viewModel.goalScore)
         WaitingRoomView(viewModel: viewModel)
       } label: {
         Text("다음")
@@ -84,6 +83,6 @@ struct GoalScoreView: View {
 
 #Preview {
   NavigationView(content: {
-    GoalScoreView()
+    GoalScoreView(viewModel: .init())
   })
 }

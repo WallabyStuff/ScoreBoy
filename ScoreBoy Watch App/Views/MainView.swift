@@ -49,7 +49,8 @@ struct MainView: View {
             
             HStack(spacing: 4) {
               NavigationLink {
-                GoalScoreView()
+                let viewModel = GoalScoreViewModel()
+                GoalScoreView(viewModel: viewModel)
               } label: {
                 Text("새 게임")
                   .font(.system(size: 15, weight: .bold))
