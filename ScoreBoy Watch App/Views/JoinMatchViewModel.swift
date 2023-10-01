@@ -21,8 +21,8 @@ final class JoinMatchViewModel: ObservableObject {
   private let ref = Database.database().reference()
   private let userId = UserIdManager.shared.getUserId()
   
-  @Published var entryCode = ""
-  @Published var matchState = MatchState.idle
+  @Published private(set) var entryCode = ""
+  @Published private(set) var matchState = MatchState.idle
   
   
   // MARK: - Public

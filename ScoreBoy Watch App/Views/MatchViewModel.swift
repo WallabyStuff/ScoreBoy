@@ -18,8 +18,8 @@ class MatchViewModel: ObservableObject {
   private var opUserId = ""
   private var goalScore: Int = 0
   
-  @Published var myScore = 0
-  @Published var opScore = 0
+  @Published private(set) var myScore = 0
+  @Published private(set) var opScore = 0
   
   @Published var isMeWon = false
   @Published var isOpWon = false
@@ -94,19 +94,6 @@ class MatchViewModel: ObservableObject {
         }
       }
     }
-//    
-//    if var dictionary = ref.value(forKey: key) as? [String: Any] {
-//      // 딕셔너리에서 내 아이디 값 빼고 나머지로 매치 정보 세팅
-//      dictionary.removeValue(forKey: userId)
-//      
-//      dictionary.forEach { key, value in
-//        if key == "goal_score" {
-//          goalScore = value as! Int
-//        } else {
-//          opUserId = key
-//        }
-//      }
-//    }
   }
   
   private func observeMatch() {

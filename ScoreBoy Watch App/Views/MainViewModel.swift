@@ -11,7 +11,7 @@ final class MainViewModel: ObservableObject {
   
   // MARK: - Properties
   
-  @Published var histories = [History]()
+  @Published private(set) var histories = [History]()
   
   
   // MARK: - Public
