@@ -19,10 +19,10 @@ struct MainView: View {
   var body: some View {
     NavigationStack {
       ZStack {
-        if viewModel.histories.isEmpty == false {
+        if viewModel.matchHistories.isEmpty == false {
           ScrollView {
             LazyVStack(spacing: 6, content: {
-              ForEach(viewModel.histories, id: \.id) { history in
+              ForEach(viewModel.matchHistories, id: \.id) { history in
                 historyListItem(history)
               }
             })
@@ -32,7 +32,7 @@ struct MainView: View {
         }
         
         VStack(spacing: 0) {
-          if viewModel.histories.isEmpty {
+          if viewModel.matchHistories.isEmpty {
             Text("아직 경기 기록이\n없습니다.")
               .multilineTextAlignment(.center)
               .font(.system(size: 15, weight: .semibold))
@@ -79,12 +79,12 @@ struct MainView: View {
       .navigationTitle("경기 기록")
       .edgesIgnoringSafeArea(.bottom)
       .onAppear {
-        viewModel.fetchHistories()
+        viewModel.loadMatchHistories()
       }
     }
   }
   
-  private func historyListItem(_ history: History) -> some View {
+  private func historyListItem(_ history: MatchHistory) -> some View {
     HStack(spacing: 12) {
       Rectangle()
         .fill(history.myScore > history.opScore ? Color.sbGreen : Color.sbRed)

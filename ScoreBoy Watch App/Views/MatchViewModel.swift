@@ -18,6 +18,8 @@ class MatchViewModel: ObservableObject {
   private var opUserId = ""
   private var goalScore: Int = 0
   
+  private let matchHistoryManager = MatchHistoryManager()
+  
   @Published private(set) var myScore = 0
   @Published private(set) var opScore = 0
   
@@ -53,10 +55,7 @@ class MatchViewModel: ObservableObject {
       .child(userId)
       .setValue(["score" : increasedNumber])
     
-    // 내 점수가 목표 점수에 도달했는지 확인
-    if increasedNumber == goalScore {
-      isMeWon = true
-    }
+    checkWinState()
   }
   
   public func adjustOp(score: Int) {
@@ -67,10 +66,7 @@ class MatchViewModel: ObservableObject {
       .child(opUserId)
       .setValue(["score" : increasedNumber])
     
-    // 상대 점수가 목표 점수에 도달했는지 확인
-    if increasedNumber == goalScore {
-      isOpWon = true
-    }
+    checkWinState()
   }
   
   public func finishMatch() {
@@ -115,21 +111,13 @@ class MatchViewModel: ObservableObject {
             // 상대 점수 업데이트
             if snapshot.key == opUserId {
               self.opScore = newScore
-              
-              // 상대 점수가 목표 점수에 도달했는지 확인
-              if newScore == self.goalScore {
-                isOpWon = true
-              }
+              checkWinState()
             }
             
             // 내 점수 업데이트
             if snapshot.key == self.userId {
               self.myScore = newScore
-              
-              // 내 점수가 목표 점수에 도달했는지 확인
-              if newScore == self.goalScore {
-                isMeWon = true
-              }
+              checkWinState()
             }
           }
         }
@@ -141,5 +129,29 @@ class MatchViewModel: ObservableObject {
       .observe(.childRemoved) { [weak self] _ in
         self?.isOpExit = true
       }
+  }
+  
+  private func checkWinState() {
+    // 상대 점수가 목표 점수에 도달했는지 확인
+    if opScore == goalScore {
+      isOpWon = true
+      saveMatchResult()
+      return
+    }
+    
+    // 내 점수가 목표 점수에 도달했는지 확인
+    if myScore == goalScore {
+      isMeWon = true
+      saveMatchResult()
+      return
+    }
+  }
+  
+  private func saveMatchResult() {
+    let matchHistory = MatchHistory(
+      myScore: myScore,
+      opScore: opScore,
+      date: Date())
+    matchHistoryManager.save(matchHistory: matchHistory)
   }
 }
