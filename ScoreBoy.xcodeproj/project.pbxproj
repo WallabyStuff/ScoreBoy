@@ -33,8 +33,8 @@
 		8EA1A7B12AC1C68D00ECF842 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8EA1A7B02AC1C68D00ECF842 /* GoogleService-Info.plist */; };
 		8EA1A7B42AC1CFA300ECF842 /* RandomCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1A7B32AC1CFA300ECF842 /* RandomCodeGenerator.swift */; };
 		8EA1A7B62AC1CFAD00ECF842 /* RandomCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1A7B32AC1CFA300ECF842 /* RandomCodeGenerator.swift */; };
-		8EA1A7BA2AC1CFE700ECF842 /* WaitingRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1A7B92AC1CFE700ECF842 /* WaitingRoomView.swift */; };
-		8EA1A7BC2AC1D04300ECF842 /* WaitingRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1A7BB2AC1D04300ECF842 /* WaitingRoomViewModel.swift */; };
+		8EA1A7BA2AC1CFE700ECF842 /* CreateMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1A7B92AC1CFE700ECF842 /* CreateMatchView.swift */; };
+		8EA1A7BC2AC1D04300ECF842 /* CreateMatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1A7BB2AC1D04300ECF842 /* CreateMatchViewModel.swift */; };
 		8EA1A7C42AC1D3B600ECF842 /* JoinMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1A7C32AC1D3B600ECF842 /* JoinMatchView.swift */; };
 		8EA1A7C72AC1DAD100ECF842 /* JoinMatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1A7C62AC1DAD100ECF842 /* JoinMatchViewModel.swift */; };
 		8EA1A7CF2AC22D0600ECF842 /* MatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1A7CE2AC22D0600ECF842 /* MatchViewModel.swift */; };
@@ -86,8 +86,8 @@
 		8EA1A79E2AC1C05200ECF842 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8EA1A7B02AC1C68D00ECF842 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8EA1A7B32AC1CFA300ECF842 /* RandomCodeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCodeGenerator.swift; sourceTree = "<group>"; };
-		8EA1A7B92AC1CFE700ECF842 /* WaitingRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingRoomView.swift; sourceTree = "<group>"; };
-		8EA1A7BB2AC1D04300ECF842 /* WaitingRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingRoomViewModel.swift; sourceTree = "<group>"; };
+		8EA1A7B92AC1CFE700ECF842 /* CreateMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMatchView.swift; sourceTree = "<group>"; };
+		8EA1A7BB2AC1D04300ECF842 /* CreateMatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMatchViewModel.swift; sourceTree = "<group>"; };
 		8EA1A7C32AC1D3B600ECF842 /* JoinMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinMatchView.swift; sourceTree = "<group>"; };
 		8EA1A7C62AC1DAD100ECF842 /* JoinMatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinMatchViewModel.swift; sourceTree = "<group>"; };
 		8EA1A7CE2AC22D0600ECF842 /* MatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchViewModel.swift; sourceTree = "<group>"; };
@@ -142,8 +142,8 @@
 				8E55805B2AC9077E008A76F6 /* GoalScoreViewModel.swift */,
 				8E0D08DE2AB5BA2B00E61FE1 /* MatchView.swift */,
 				8EA1A7CE2AC22D0600ECF842 /* MatchViewModel.swift */,
-				8EA1A7B92AC1CFE700ECF842 /* WaitingRoomView.swift */,
-				8EA1A7BB2AC1D04300ECF842 /* WaitingRoomViewModel.swift */,
+				8EA1A7B92AC1CFE700ECF842 /* CreateMatchView.swift */,
+				8EA1A7BB2AC1D04300ECF842 /* CreateMatchViewModel.swift */,
 				8EA1A7C32AC1D3B600ECF842 /* JoinMatchView.swift */,
 				8EA1A7C62AC1DAD100ECF842 /* JoinMatchViewModel.swift */,
 			);
@@ -379,10 +379,10 @@
 				8EA1A7C42AC1D3B600ECF842 /* JoinMatchView.swift in Sources */,
 				8E0D08DF2AB5BA2B00E61FE1 /* MatchView.swift in Sources */,
 				8E557FEA2AC2EF7F008A76F6 /* UserIdManager.swift in Sources */,
-				8EA1A7BC2AC1D04300ECF842 /* WaitingRoomViewModel.swift in Sources */,
+				8EA1A7BC2AC1D04300ECF842 /* CreateMatchViewModel.swift in Sources */,
 				8E0D08D52AB4D39200E61FE1 /* Date+Formatted.swift in Sources */,
 				8E0D08DD2AB4D5C500E61FE1 /* GoalScoreView.swift in Sources */,
-				8EA1A7BA2AC1CFE700ECF842 /* WaitingRoomView.swift in Sources */,
+				8EA1A7BA2AC1CFE700ECF842 /* CreateMatchView.swift in Sources */,
 				8E8A8A8E2AB4B9A6000528BC /* ScoreBoyApp.swift in Sources */,
 				8E0D08CD2AB4CF5200E61FE1 /* MainViewModel.swift in Sources */,
 				8E0D08D02AB4CF7300E61FE1 /* History.swift in Sources */,

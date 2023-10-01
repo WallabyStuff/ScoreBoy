@@ -1,5 +1,5 @@
 //
-//  WaitingRoomViewModel.swift
+//  CreateMatchViewModel.swift
 //  ScoreBoy Watch App
 //
 //  Created by 이승기 on 2023/09/25.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Firebase
 
-final class WaitingRoomViewModel: ObservableObject {
+final class CreateMatchViewModel: ObservableObject {
   
   // MARK: - Properties
   
@@ -21,7 +21,7 @@ final class WaitingRoomViewModel: ObservableObject {
   private let userId = UserIdManager.shared.getUserId()
   public let goalScore: Int
   
-  @Published private(set) var entryCode = RandomCodeGenerator.generateRandomCode()
+  @Published private(set) var entryCode = ""
   @Published private(set) var matchState = MatchState.waiting
   
   
@@ -40,6 +40,7 @@ final class WaitingRoomViewModel: ObservableObject {
   // MARK: - Public
   
   public func generateRoom() {
+    entryCode = RandomCodeGenerator.generateRandomCode()
     ref.child(entryCode)
       .setValue([
         "goal_score" : goalScore,
