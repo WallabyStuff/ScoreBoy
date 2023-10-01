@@ -11,16 +11,13 @@ final class MainViewModel: ObservableObject {
   
   // MARK: - Properties
   
-  @Published private(set) var histories = [History]()
+  private let matchHistoryManager = MatchHistoryManager()
+  @Published private(set) var matchHistories = [MatchHistory]()
   
   
   // MARK: - Public
   
-  public func fetchHistories() {
-    histories = [
-      .init(myScore: 14, opScore: 13, date: .init()),
-      .init(myScore: 4, opScore: 32, date: .init()),
-      .init(myScore: 14, opScore: 42, date: .init())
-    ]
+  public func loadMatchHistories() {
+    matchHistories = matchHistoryManager.loadMatchHistories()
   }
 }

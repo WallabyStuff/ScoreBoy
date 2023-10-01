@@ -21,7 +21,7 @@ final class CreateMatchViewModel: ObservableObject {
   private let userId = UserIdManager.shared.getUserId()
   public let goalScore: Int
   
-  @Published private(set) var entryCode = ""
+  @Published private(set) var entryCode = RandomCodeGenerator.generateRandomCode()
   @Published private(set) var matchState = MatchState.waiting
   
   
